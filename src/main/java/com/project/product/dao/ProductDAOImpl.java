@@ -24,6 +24,24 @@ public class ProductDAOImpl implements ProductDAO{
 	private Logger logger = LoggerFactory.getLogger(ProductDAOImpl.class);
 	
 	@Override
+	public Product getProductById(long id) {
+		Product product = entityManager.find(Product.class, id);
+		if(null == product) {
+			throw new ProductNotFoundException(id+"");
+		}
+		
+		return product;
+	}
+	
+	@Override
+	public List<Product> getAllProducts() {
+		TypedQuery<Product> namedQuery = entityManager.createNamedQuery("Product.findAll", Product.class);
+		List<Product> products = namedQuery.getResultList();
+		
+		return products;
+	}
+	
+	@Override
 	public List<Product> findByNameContains(String name) {
 		//Product product = null;
 		
@@ -59,11 +77,7 @@ public class ProductDAOImpl implements ProductDAO{
 
 	@Override
 	public boolean deleteProductById(Long id) throws ProductNotFoundException {
-		Product product = entityManager.find(Product.class, id);
-		if(null == product) {
-			throw new ProductNotFoundException(id+"");
-		}
-			
+		Product product = getProductById(id);			
 		try {
 			entityManager.remove(product);
 			logger.info("Product successfully deleted with Product Id : " + id);

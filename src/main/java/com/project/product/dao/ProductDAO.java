@@ -9,4 +9,6 @@ public interface ProductDAO {
 	public List<Product> findByNameContains(String name);
 	public Product storeProduct(Product product);
 	public boolean deleteProductById(Long id);
+	public List<Product> getAllProducts();
+	public Product getProductById(long id);
 }

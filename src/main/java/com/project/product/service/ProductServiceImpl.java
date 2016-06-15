@@ -19,6 +19,11 @@ public class ProductServiceImpl implements ProductService{
 	private ProductDAO productDAO;
 	
 	@Override
+	public Product getProductById(long id) {
+		return productDAO.getProductById(id);
+	}
+	
+	@Override
 	public List<Product> findByNameContains(String name) {
 		return productDAO.findByNameContains(name);
 	}
@@ -31,6 +36,11 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public boolean deleteProductById(Long id) {
 		return productDAO.deleteProductById(id);
+	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		return productDAO.getAllProducts();
 	}
 
 }
