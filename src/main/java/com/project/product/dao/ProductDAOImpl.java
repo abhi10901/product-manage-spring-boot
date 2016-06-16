@@ -26,9 +26,10 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public Product getProductById(long id) {
 		Product product = entityManager.find(Product.class, id);
-		if(null == product) {
-			throw new ProductNotFoundException(id+"");
-		}
+		/*if(null == product) {
+			//throw new ProductNotFoundException(id+"");
+			return null;
+		}*/
 		
 		return product;
 	}
@@ -77,7 +78,8 @@ public class ProductDAOImpl implements ProductDAO{
 
 	@Override
 	public boolean deleteProductById(Long id) throws ProductNotFoundException {
-		Product product = getProductById(id);			
+		Product product = getProductById(id);
+		if(product == null) return false;
 		try {
 			entityManager.remove(product);
 			logger.info("Product successfully deleted with Product Id : " + id);

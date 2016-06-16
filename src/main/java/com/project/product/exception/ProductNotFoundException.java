@@ -18,5 +18,6 @@ public class ProductNotFoundException extends RuntimeException {
 	
 	public ProductNotFoundException(String productId) {
 		log.error("Product not found with Product Id : " + productId);
+		return;
 	}
 }
